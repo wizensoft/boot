@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" > 
+
+<!-- 
+TestMapper.java 의 패키지 경로와 resource 상의 TestMapper.xml 패키지 경로가 동일해야 하고 namespace도 일치해야 합니다.
+ -->
+<mapper namespace="com.wizen.web.portal.mapper.TestUserMapper">
+<!-- 
+	<select id="getNum" resultType="java.lang.Integer">
+		SELECT 1 FROM DUAL
+	</select> 
+ -->
+    <select id="selectTestMapper" parameterType="int" resultType="String" >
+  select 1 + 1 + #{number}
+    </select>
+</mapper>

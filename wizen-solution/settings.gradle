@@ -1,0 +1,2 @@
+rootProject.name = 'wizen-solution'
+include 'wizensoft-core', 'wizensoft-library-infrastructure', 'wizensoft-library-db', 'wizensoft-library-model' , 'wizensoft-web-api', 'wizensoft-web-login','wizensoft-web-portal'

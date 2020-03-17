@@ -1,0 +1,9 @@
+/.metadata/
+/Servers/
+/wizen-solution/bin
+/wizen-solution/wizensoft-core/bin
+/wizen-solution/wizensoft-library-infrastructure/bin
+/wizen-solution/wizensoft-web-api/bin
+/wizen-solution/wizensoft-web-login/bin
+/wizen-solution/wizensoft-web-portal/bin
+/wizen-solution/wizensoft-library-db/bin

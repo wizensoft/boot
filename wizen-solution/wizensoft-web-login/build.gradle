@@ -1,0 +1,47 @@
+repositories {
+    mavenCentral()
+}
+
+/*
+plugins {
+   id 'org.springframework.boot' version '2.2.5.RELEASE'
+}
+*/
+
+
+
+/*apply plugin: 'java'*/
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+eclipse.wtp.facet {
+    file {
+            facet name: 'jst.web', version: '4.0'
+            facet name: 'java', version: '1.13'
+            /*def oldJstWebFacet = facets.findAll {
+                it.name == 'jst.web' && it.version == '2.4'
+            }
+            facets.removeAll(oldJstWebFacet)
+            facet name: 'jst.cdi', version: '2.0'
+            facet name: 'jst.jaxrs', version: '2.1'
+            facet name: 'wst.jsdt.web', version: '1.0'
+            */              
+        }
+}
+
+
+dependencies {
+	compile project(':wizensoft-core')
+	
+	/*compile('org.springframework.boot:spring-boot-starter-aop')*/
+	/*
+	*/
+	//compile('org.springframework.boot:spring-boot-starter-web')
+	//testCompile('org.springframework.boot:spring-boot-starter-test')
+	/*implementation 'org.springframework.boot:spring-boot-starter-web'
+	 */
+	 implementation 'org.springframework.boot:spring-boot-starter-web'
+	 providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+}

@@ -1,0 +1,136 @@
+repositories {
+    mavenCentral()
+}
+
+/*
+plugins {
+   id 'org.springframework.boot' version '2.2.5.RELEASE'
+}
+*/
+
+
+
+/*apply plugin: 'java'*/
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+eclipse.wtp.facet {
+    file {
+            facet name: 'jst.web', version: '4.0'
+            facet name: 'java', version: '1.13'
+            /*def oldJstWebFacet = facets.findAll {
+                it.name == 'jst.web' && it.version == '2.4'
+            }
+            facets.removeAll(oldJstWebFacet)
+            facet name: 'jst.cdi', version: '2.0'
+            facet name: 'jst.jaxrs', version: '2.1'
+            facet name: 'wst.jsdt.web', version: '1.0'
+            */              
+        }
+}
+
+
+dependencies {
+	compile project(':wizensoft-core')
+	//compile project ':wizensoft-core'
+	
+	compile project(':wizensoft-library-infrastructure')
+	//testCompile  project(':wizensoft-library-infrastructure')
+	// First dependency is for IDEA
+	//testCompileOnly files { project(':core').sourceSets.test.java.srcDirs }
+	// Second is for Gradle
+	//testCompile project(':wizensoft-library-infrastructure').sourceSets.test.output
+	//testCompile files(project(':wizensoft-library-infrastructure').sourceSets.test.output.classesDir)
+	 //testCompile project(path: ':wizensoft-library-infrastructure', configuration: 'tests')
+	/*compile('org.springframework.boot:spring-boot-starter-aop')*/
+	/*
+	*/
+	//compile('org.springframework.boot:spring-boot-starter-web')
+	//testCompile('org.springframework.boot:spring-boot-starter-test')
+	/*implementation 'org.springframework.boot:spring-boot-starter-web'
+	 */
+	 //implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	 implementation 'org.springframework.boot:spring-boot-starter-web'
+	 providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	 
+	 
+	 
+	 
+	 // https://mvnrepository.com/artifact/org.apache.tiles/tiles-servlet
+	compile group: 'org.apache.tiles', name: 'tiles-servlet', version: '3.0.8'
+	compile group: 'org.apache.tiles', name: 'tiles-api', version: '3.0.8'
+	compile group: 'org.apache.tiles', name: 'tiles-jsp', version: '3.0.8'
+	//compile group: 'org.apache.tiles', name: 'tiles-core', version: '3.0.8' //위의 하나에 디펜던시로 자동추가됨.
+	//compile group: 'org.apache.tiles', name: 'tiles-template', version: '3.0.8' //위의 하나에 디펜던시로 자동추가됨.
+	compile group: 'org.apache.tiles', name: 'tiles-extras', version: '3.0.8'
+	 
+	 // https://mvnrepository.com/artifact/javax.servlet/jstl
+	compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+	//compile('javax.servlet:jstl:1.2')
+	// https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api
+	providedCompile group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.3'
+
+
+	//mybatis + mariadb(mysql)
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'mysql:mysql-connector-java'
+	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+	
+	
+	compile('org.apache.poi:poi-ooxml:4.1.2') // .xlsx
+    compile('org.apache.poi:poi:4.1.2') // .xls
+	
+	
+	// spring-data-redis
+    compile('org.springframework.boot:spring-boot-starter-data-redis')
+    //embedded-redis
+    //compile group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
+    
+	//compile group: 'redis.clients', name: 'jedis', version: '2.9.2'
+	// https://mvnrepository.com/artifact/redis.clients/jedis
+	compile group: 'redis.clients', name: 'jedis', version: '3.2.0'
+	
+
+    //testCompile 'org.junit.jupiter:junit-jupiter:5.5.2'
+    testCompile('org.junit.jupiter:junit-jupiter-api')
+    //testRuntime('org.junit.jupiter:junit-jupiter-engine')
+    testImplementation('org.junit.jupiter:junit-jupiter-api')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
+    testCompile('org.junit.jupiter:junit-jupiter-params')
+
+ 	testCompile("org.springframework.boot:spring-boot-starter-test") {
+        //exclude module: "junit" // JUnit4 제거, 스프링 부트 2.2.0 부터 JUnit5 적용
+        exclude group: 'junit', module: 'junit'
+    }
+    
+	testCompile group: 'org.junit.vintage', name: 'junit-vintage-engine'//, version: '5.2.0'
+	 
+}
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		exceptionFormat = 'full' 
+	} 
+}
+
+sourceSets {
+    api
+    impl
+    main{
+        java {
+            srcDir 'src/api/java'
+            srcDir 'src/impl/java'
+            
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+    }
+}
