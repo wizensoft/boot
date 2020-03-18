@@ -1,5 +1,6 @@
 package com.wizen.web.portal.init;
 
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -11,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jndi.JndiObjectFactoryBean;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -18,7 +20,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 @PropertySource("classpath:/application.properties")
 /*
-@MapperScan( basePackages = "mapper설정 패키지 풀 경로", sqlSessionFactoryRef = "sqlSessionFactory" )
+@MapperScan( basePackages = "mapper�꽕�젙 �뙣�궎吏� �� 寃쎈줈", sqlSessionFactoryRef = "sqlSessionFactory" )
  */
 public class DatabaseConfiguration {
 	@Autowired
@@ -30,12 +32,24 @@ public class DatabaseConfiguration {
 		return new HikariConfig();
 	}
 	
+	/*
 	@Bean(destroyMethod="close")
 	public DataSource dataSource() throws Exception {
 		DataSource dataSource = new HikariDataSource(hikariConfig());
 		System.out.println(dataSource.toString());
 		return dataSource;
 	}
+	*/
+	@Bean
+    public DataSource dataSource() throws IllegalArgumentException,
+                                              NamingException {
+        JndiObjectFactoryBean bean = new JndiObjectFactoryBean();           // create JNDI data source
+        bean.setJndiName("java:/comp/env/wizenJndiDataSource");  // jndiDataSource is name of JNDI data source 
+        bean.setProxyInterface(DataSource.class);
+        bean.setLookupOnStartup(false);
+        bean.afterPropertiesSet();
+        return (DataSource) bean.getObject();
+    }
 	
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
