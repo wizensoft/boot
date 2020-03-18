@@ -36,7 +36,9 @@
     </logger>
 
     <logger name="com.wizen" level="DEBUG">
+    <!-- 
         <appender-ref ref="STDOUT" />
+         -->
     </logger>
 
     <root level="ERROR"><!-- INFO, DEBUG -->
