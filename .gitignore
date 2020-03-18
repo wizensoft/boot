@@ -7,3 +7,4 @@
 /wizen-solution/wizensoft-web-login/bin
 /wizen-solution/wizensoft-web-portal/bin
 /wizen-solution/wizensoft-library-db/bin
+/wizen-solution/wizensoft-web-portal/src/main/webapp/WEB-INF/lib/wizensoft-library-infrastructure-1.0.0-SNAPSHOT.jar
