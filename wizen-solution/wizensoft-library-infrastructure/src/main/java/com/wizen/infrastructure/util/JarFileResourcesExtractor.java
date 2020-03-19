@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -97,10 +98,17 @@ public class JarFileResourcesExtractor implements ServletContextAware {
     @PostConstruct
     public void extractFiles() throws IOException {
         try {
-            String path = servletContext.getRealPath("/WEB-INF/lib/" + jarFile);
+        	
+        	
+			String jarfilepath = new File(JarFileResourcesExtractor.class.getProtectionDomain().getCodeSource().getLocation()
+					    .toURI()).getPath();
+			System.out.println("extractFiles filepath = " + jarfilepath);
+			
+        	
+            //String path = servletContext.getRealPath("/WEB-INF/lib/" + jarFile);
             
-            logger.info("extractFiles path = " + path);
-            JarFile jarFile = new JarFile(path);
+            //logger.info("extractFiles path = " + path);
+            JarFile jarFile = new JarFile(jarfilepath);
 
             Enumeration<JarEntry> entries = jarFile.entries();
             while (entries.hasMoreElements()) {
@@ -124,6 +132,9 @@ public class JarFileResourcesExtractor implements ServletContextAware {
         }
         catch (IOException e) {
             throw new IOException("IOException while moving resources.", e);
+        } catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
         }
     }
 

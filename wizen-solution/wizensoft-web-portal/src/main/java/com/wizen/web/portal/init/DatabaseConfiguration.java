@@ -18,20 +18,21 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@PropertySource("classpath:/application.properties")
+//@PropertySource("classpath:/application.properties")
 /*
-@MapperScan( basePackages = "mapper�꽕�젙 �뙣�궎吏� �� 寃쎈줈", sqlSessionFactoryRef = "sqlSessionFactory" )
+@MapperScan( basePackages = "mapper설정 패키지 풀 경로", sqlSessionFactoryRef = "sqlSessionFactory" )
  */
 public class DatabaseConfiguration {
 	@Autowired
 	private ApplicationContext applicationContext;
 	
+	/*
 	@Bean
 	@ConfigurationProperties(prefix="spring.datasource.hikari")
 	public HikariConfig hikariConfig() {
 		return new HikariConfig();
 	}
-	
+	*/
 	/*
 	@Bean(destroyMethod="close")
 	public DataSource dataSource() throws Exception {
@@ -40,16 +41,16 @@ public class DatabaseConfiguration {
 		return dataSource;
 	}
 	*/
-	@Bean
-    public DataSource dataSource() throws IllegalArgumentException,
-                                              NamingException {
-        JndiObjectFactoryBean bean = new JndiObjectFactoryBean();           // create JNDI data source
-        bean.setJndiName("java:/comp/env/wizenJndiDataSource");  // jndiDataSource is name of JNDI data source 
-        bean.setProxyInterface(DataSource.class);
-        bean.setLookupOnStartup(false);
-        bean.afterPropertiesSet();
-        return (DataSource) bean.getObject();
-    }
+	 @Bean
+	    public DataSource dataSource() throws IllegalArgumentException,
+	                                              NamingException {
+	        JndiObjectFactoryBean bean = new JndiObjectFactoryBean();           // create JNDI data source
+	        bean.setJndiName("java:/comp/env/wizenJndiDataSource");  // jndiDataSource is name of JNDI data source 
+	        bean.setProxyInterface(DataSource.class);
+	        bean.setLookupOnStartup(false);
+	        bean.afterPropertiesSet();
+	        return (DataSource) bean.getObject();
+	    }
 	
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {

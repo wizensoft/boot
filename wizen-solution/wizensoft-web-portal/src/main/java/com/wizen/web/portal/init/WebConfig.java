@@ -1,5 +1,9 @@
 package com.wizen.web.portal.init;
 
+import java.io.IOException;
+
+import javax.annotation.PostConstruct;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
@@ -34,12 +38,15 @@ public class WebConfig {
 	}
 	
 	 @Bean 
-    public JarFileResourcesExtractor jspSupport(){
-        final JarFileResourcesExtractor extractor = new JarFileResourcesExtractor("META-INF/resources/*.jsp"
-        		,"wizensoft-library-infrastructure-1.0.0-SNAPSHOT.jar"
-        		//,"WEB-INF/dest/infrastructure/jsp" 
-        		,"WEB-INF/views/common"
-        		);
-        return extractor;
-    }
+	    public JarFileResourcesExtractor jspSupport(){
+	        final JarFileResourcesExtractor extractor = new JarFileResourcesExtractor("META-INF/resources/*.jsp"
+	        		,"wizensoft-library-infrastructure-1.0.0-SNAPSHOT.jar"
+	        		//,"WEB-INF/dest/infrastructure/jsp" 
+	        		,"WEB-INF/views/common"
+	        		);
+	        return extractor;
+	 }
+
+		
+	
 }

@@ -7,8 +7,12 @@ bootJar { enabled = false }
 jar { 
 	enabled = true
 	//destinationDir project.file('../dest') 
-	destinationDir project.file('../wizensoft-web-portal/src/main/webapp/WEB-INF/lib')
+	//destinationDir project.file('../wizensoft-web-portal/src/main/webapp/WEB-INF/lib')
+	// excludes = ['**/application.yml']
+	//baseName = "${artifactId}"
+	//version = "${version}"
 }
+
 
 apply plugin: 'eclipse-wtp'
 
@@ -25,6 +29,11 @@ eclipse.wtp.facet {
             facet name: 'wst.jsdt.web', version: '1.0'
             */              
         }
+}
+task generateQueryDSL(type: JavaCompile, group: "build") {
+  doFirst {
+  	logger.info("Creating `$queryDslOutput` directory")
+  }
 }
 
 dependencies {

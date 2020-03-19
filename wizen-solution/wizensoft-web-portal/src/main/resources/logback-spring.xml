@@ -28,13 +28,16 @@
         </rollingPolicy>
     </appender>
     
+    <!-- 
     <logger name="com.apress.spring" level="DEBUG">
         <appender-ref ref="SAMPLE" />
     </logger>
+     -->
+     <!-- 
     <logger name="com.apress.spring.jeongpro" level="INFO">
         <appender-ref ref="ROLLING" />
     </logger>
-
+ -->
     <logger name="com.wizen" level="DEBUG">
     <!-- 
         <appender-ref ref="STDOUT" />
@@ -42,7 +45,7 @@
     </logger>
 
     <root level="ERROR"><!-- INFO, DEBUG -->
-    	<appender-ref ref="ROLLING" />
+    	<!-- <appender-ref ref="ROLLING" /> -->
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>

@@ -7,41 +7,87 @@ buildscript {
 	ext {
 		springBootVersion = '2.2.5.RELEASE'
 		orgApacheTilesVersion = '3.0.8'
+		springGradleDependencyManagementVersion= '1.0.9.RELEASE'
+		springPlatformBomVersion = '2.0.8.RELEASE' // 1.1.2.RELEASE
+		//mavenBom 'io.spring.platform:platform-bom:2.0.8.RELEASE'
 		
 	}
 	repositories {
 		mavenLocal()
 		mavenCentral()
-		 //maven { url 'http://repo.maven.apache.org/maven2'  }
-		 
+		/*
+		maven { 
+			url 'http://repo.maven.apache.org/maven2'
+			url "https://plugins.gradle.org/m2/"  
+		}
+		*/
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		//classpath('io.spring.gradle:dependency-management-plugin:1.0.0.RELEASE')
+		classpath('io.spring.gradle:dependency-management-plugin:${springGradleDependencyManagementVersion}')
+
+
 	}
 }
 
 
 subprojects {
-	ext {
-		orgApacheTilesVersion = '3.0.8'
-	}
 	apply plugin: 'java'
-	//apply plugin: 'eclipse'
+	apply plugin: 'eclipse'
 	//apply plugin: 'idea'
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
 	
-	sourceCompatibility = 1.13
-		
+	//sourceCompatibility = 1.13
+	sourceCompatibility = 13
+	targetCompatibility = 13
+
+    [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
+    // warning: [rawtypes] found raw type: RedisTemplate
+	//[compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint:all"]
+	//[compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint"]
+
+    sourceSets {
+        test.resources {
+            // 테스트시에 src/main/resources에있는 설정 파일을 사용하는
+            srcDirs "src/main/resources"
+            srcDirs "src/test/resources"
+        }
+    }
+
 	repositories {
-		mavenLocal()
+		//mavenLocal()
 		mavenCentral()
+		jcenter()
+		 // jasperreports
+        //maven { url "http://jasperreports.sourceforge.net/maven2/" }
+        //maven { url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/" }
 	}
-	
-		
+
+	// 3. Spring IO Platform 버전 지정
+	// Gradle에는 원래 정의 되지 않은 task 이지만 io.spring.dependency-management plugin 적용으로 새롭게 생긴 task 이며 Spring IO Platform의 버전을 선언 하게 됩니다.
+	/*
+	dependencyManagement {
+    	imports {
+        	// Spring Dependency Management의 버전을 지정 하여 관련 의존성 라이브러리 버전을 같이 관리함.
+        	//mavenBom 'io.spring.platform:platform-bom:1.1.2.RELEASE'
+        	mavenBom 'io.spring.platform:platform-bom:${springPlatformBomVersion}'
+    	}
+	}
+	*/
+ 
+
+ 	eclipse {
+        classpath {
+            containers.remove("org.eclipse.jdt.launching.JRE_CONTAINER")
+            containers "org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-13"
+        }
+    }
+
 	dependencies {
 		//compileOnly('org.projectlombok:lombok')
 		//testCompile("org.springframework.boot:spring-boot-starter-test")
 	}
+	
+	
 }

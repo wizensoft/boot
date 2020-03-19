@@ -8,6 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ModuleWebApplication {
 
 	public static void main(String[] args) {
+		
+		System.out.println("ModuleWebApplication ##");
+		
 		SpringApplication.run(ModuleWebApplication.class, args);
 	}
 
