@@ -117,7 +117,7 @@ http://localhost:8080/wizensoft-web-portal/main/home.do?gubun=del&key=ksr33&valu
 		logger.debug("url call ====/main/home2.do #########");
 ModelAndView mav = new ModelAndView("main/home2");
         
-        mav.addObject("key", "fruits");
+        mav.addObject("key", "과일");
         
         List<String> fruitList = new ArrayList<String>();
         
